@@ -24,7 +24,7 @@ class Tab3 extends StatelessWidget {
                 children: <Widget>[
                   Center(
                       child: Padding(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(50),
                         child: Text(
                           data[i],
                           style:TextStyle(fontSize: 16,color: Colors.deepOrange),
@@ -47,7 +47,7 @@ class Tab3 extends StatelessWidget {
                 children: <Widget>[
                   Center(
                       child: Padding(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(50),
                         child: Text(
                           "没课",
                           style:TextStyle(fontSize: 20,color: Colors.green),

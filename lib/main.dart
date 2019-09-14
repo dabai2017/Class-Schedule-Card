@@ -1,16 +1,12 @@
-import 'dart:convert';
-
+import 'package:class_schedule_card/widget/home_page_up_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:class_schedule_card/pages/tabs/Tab01.dart';
 import 'package:class_schedule_card/pages/tabs/Tab02.dart';
 import 'package:class_schedule_card/pages/tabs/Tab03.dart';
 import 'package:class_schedule_card/pages/tabs/Tab04.dart';
 import 'package:class_schedule_card/pages/tabs/Tab05.dart';
 import 'package:class_schedule_card/pages/tabs/Tab06.dart';
-import 'package:class_schedule_card/utils/Toast.dart';
-import 'package:class_schedule_card/utils/net_util.dart';
-import 'package:class_schedule_card/utils/schedule_util.dart';
+
 
 main() {
   runApp(MyApp());
@@ -22,6 +18,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily:"googlesan"
+      ),
       title: "课程表",
       home: ScaffoldContent(),
     );
@@ -91,135 +90,16 @@ class Tab_in extends StatefulWidget {
 }
 
 class _Tab_inState extends State<Tab_in> {
-  final String link = "https://v1.hitokoto.cn";
-  String weekstr = "今天${get_weekday_str()}";
-  String text = "正在刷新一言数据";
-
-  String text_data;
-
-  var version = "2019-9-13 09:07";
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    init_data();
-  }
-
-  Future init_data() async {
-    text_data = await NetUtil("https://v1.hitokoto.cn").getBody();
-
-    if (text_data == "null") {
-      setState(() {
-        text = "网络出了一点小问题~";
-      });
-    } else {
-      var parsedJson = json.decode(text_data);
-
-      setState(() {
-        text = parsedJson["hitokoto"] + "  --${parsedJson["from"]}";
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.blueGrey,
-      child: ListView(
-        children: <Widget>[
-          GestureDetector(
-            child: Container(
-              child: Center(
-                  child: Text(
-                "版本号: $version",
-                style: TextStyle(color: Colors.white54),
-              )),
-              padding: EdgeInsets.all(10),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 10, left: 15, right: 15),
-            child: RaisedButton(
-              color: Colors.white,
-                child: Text("分享软件给好友"),
-                onPressed: () {
-                  showAboutDialog(applicationName: "关于课程表",context: context,
-                      children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 10),
-                      child: Center(
-                        child: Text("扫码下载"),
-                      ),
-                    ),
-                    Share(),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Center(
-                        child: Text(
-                          "开发者:软件一班冯同学",
-                          style: TextStyle(color: Colors.black12),
-                        ),
-                      ),
-                    ),
-                  ]);
-                }),
-          ),
-          GestureDetector(
-            child: Container(
-              child: Card(
-                  child: Padding(
-                padding: EdgeInsets.only(top: 50, bottom: 50),
-                child: Center(
-                  child: Text(
-                    weekstr,
-                    style: TextStyle(
-                      fontSize: 25,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              )),
-              padding: EdgeInsets.all(10),
-            ),
-          ),
-          GestureDetector(
-            child: Container(
-              child: Card(
-                  child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Text(text),
-              )),
-              padding: EdgeInsets.all(10),
-            ),
-            onTap: () {
-              init_data();
-            },
-            onLongPress: () {
-              Clipboard.setData(ClipboardData(text: text));
-
-              Toast.toast(context,
-                  msg: "复制完成", position: ToastPostion.bottom, showTime: 1500);
-            },
-          ),
-        ],
-      ),
+      child: HomePage_UpBar()
     );
   }
+
+
+
 }
 
-class Share extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        child: Center(
-          child: Card(
-            child: Image.asset("images/downlink.png"),
-          ),
-        ),
-      ),
-    );
-  }
-}

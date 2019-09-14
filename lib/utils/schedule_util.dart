@@ -1,3 +1,15 @@
+//课程时间
+
+List sc_times = [
+  "8:00 - 9:30",
+  "10:00 - 11:30",
+  "2:00 - 3:30",
+  "4:00 - 5:30",
+  "6:40 - 8:30",
+];
+
+
+
 //获取今天星期几
 String get_weekday_str() {
   var weekday = DateTime.now().weekday;
