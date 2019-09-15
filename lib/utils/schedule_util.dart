@@ -14,13 +14,6 @@ List sc_times = [
 String get_weekday_str() {
   var weekday = DateTime.now().weekday;
 
-  var hour = DateTime.now().hour;
-  var minute = DateTime.now().minute;
-
-  if (int.parse("$hour$minute") > 1930) {
-    return "明天";
-  }
-
   switch (weekday) {
     case 1:
       return "星期一";

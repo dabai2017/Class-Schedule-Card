@@ -2,7 +2,7 @@ name: class_schedule_card
 description: 软件一班的课程表
 
 
-version: 1.0.0+1
+version: 1.1.0+5
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
